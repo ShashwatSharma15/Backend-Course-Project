@@ -1,4 +1,5 @@
 const asyncHandler = (requestHandler) => {
+    //copilot suggested to type return in front
     return (req, res, next) => {
         Promise.resolve(requestHandler(req, res, next)).catch((err) => next(err))
     }
@@ -7,8 +8,10 @@ const asyncHandler = (requestHandler) => {
 export {asyncHandler}
 
 
+//higher order function!! 
 // const asyncHandler = () => {}
 // const asyncHandler = (fn) => {() => {}}
+// const asyncHandler = (fn) => () => {}
 // const asyncHandler = (fn) => async () => {}
 
 //try catch standard code

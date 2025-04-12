@@ -47,6 +47,9 @@ const userSchema = new Schema({
     }
 }, {timestamps: true})
 
+//pre hook to encrypt password before storing in server
+// we put if, bcoz everytime user changes anything eg. avatar, all new data saves.
+// so pre hook will again encrypt password, which we don't want
 userSchema.pre("save", async function (next) {
     if(!this.isModified("password")){
         return next()
@@ -56,6 +59,8 @@ userSchema.pre("save", async function (next) {
     next()
 })
 
+//mongoose allow coustom methods like hooks
+//check password method
 userSchema.methods.isPasswordCorrect = async function (password){
     return await bcrypt.compare(password, this.password)
 }
