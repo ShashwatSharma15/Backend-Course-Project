@@ -1,5 +1,4 @@
 const asyncHandler = (requestHandler) => {
-    //copilot suggested to type return in front
     return (req, res, next) => {
         Promise.resolve(requestHandler(req, res, next)).catch((err) => next(err))
     }
