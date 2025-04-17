@@ -25,13 +25,13 @@ const registerUser = asyncHandler(async (req, res) => {
   //if data coming from form or json - use - req.body
   //step 1.
   const { fullName, email, username, password } = req.body
-  console.log("email: ", email);
+  // console.log("email: ", email);
 
   //step 2.
   //like this we need to check for many
-  if(fullName === ""){
-    throw new ApiError(400, "full name is required")
-  }
+  // if(fullName === ""){
+  //   throw new ApiError(400, "full name is required")
+  // }
 
   //shortcut
   if(
@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   //step 3.
   // User.findOne({email})
-  const existedUser = User.findOne({
+  const existedUser = await User.findOne({
     $or: [{ username }, { email }]
   })
 
@@ -53,11 +53,17 @@ const registerUser = asyncHandler(async (req, res) => {
   //step 4.
   //console.log things and check
   const avatarLocalPath = req.files?.avatar[0]?.path;
-  const coverImageLocalPath = req.files?.coverImage[0]?.path;
+  // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+
+  let coverImageLocalPath;
+  if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length>0) {
+    coverImageLocalPath = req.files.coverImage[0].path;
+  }
 
   if(!avatarLocalPath){
     throw new ApiError(400, "Avatar filee is required")
   }
+  // console.log(req.files);
 
   //step 5.
   const avatar = await uploadOnCloudinary(avatarLocalPath);

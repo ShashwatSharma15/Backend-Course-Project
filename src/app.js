@@ -17,7 +17,7 @@ app.use(cors({
 //multer is used for file sharing
 app.use(express.json({limit: "16kb"}))
 
-//extended to get onbjects inside obejcts
+//extended to get objects inside obejcts
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 
 //to make public folder, files, pdf, images to store in my server only
@@ -35,7 +35,7 @@ import userRouter from "./routes/user.routes.js";
 app.use("/api/v1/users", userRouter)
 
 //  http://localhost:8000/users -> contol goes to /users
-// router routers to eg /register
+// router routes to eg /register
 //so http://localhost:8000/users/register
 // so finally http://localhost:8000/api/v1/users/register
 
